@@ -1,3 +1,4 @@
+#!/bin/bash
 set -eo pipefail
 ARTIFACT_BUCKET=$(cat bucket-name.txt)
 TEMPLATE=template.yml

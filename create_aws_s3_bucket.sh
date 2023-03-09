@@ -1,3 +1,4 @@
+#!/bin/bash
 echo "Creating S3 bucket $1 for profile $2 in region $3"
 BUCKET_NAME=$1
 echo $BUCKET_NAME > bucket-name.txt
