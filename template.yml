@@ -1,0 +1,21 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: 'AWS::Serverless-2016-10-31'
+Description: An AWS Lambda application that calls the Lambda API.
+Resources:
+  function:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: build/distributions/cloud-samples.zip
+      Handler: com.logicmonitor.aws.lambdas.CreateAndAttachPolicyToRoleHandler
+      Runtime: java11
+      Description: Java function
+      MemorySize: 512
+      Timeout: 900
+      # Function's execution role
+      Policies:
+        - AWSLambdaBasicExecutionRole
+        - AWSLambda_FullAccess
+        - AWSXrayWriteOnlyAccess
+        - AWSLambdaVPCAccessExecutionRole
+        - IAMFullAccess         # this is to grant access to our lambda function to manage IAM resource (create policy, role, attach policy etc.,)
+      Tracing: Active
