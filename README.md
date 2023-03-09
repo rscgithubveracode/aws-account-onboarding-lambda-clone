@@ -28,9 +28,9 @@ If you have your aws-cli setup with a single profile, you could also directly cr
 
 Add `--region` option if you want it in a particular region.
 
-# Deploy artifacts and lambda function
+# Deploy artifacts and lambda function - One time process
 
-Now that you have created a s3 bucket, let's deploy our lambda function. 
+Now that you have created a s3 bucket, let's deploy our lambda function.
 
 The deploy script uses aws cloudformation to package the artifacts and create the lambda function.
 
@@ -46,11 +46,14 @@ Make sure you have an out.yml file generated.
 
 You should see a successfully created stack message.
 
-Now, you can trigger the lambda function using events from aws console. 
+# Running the lambda function
+
+Now, you can trigger the lambda function using events from aws console. This will create the role,
+policy and attach the policy to role.
 
 Navigate to aws console -> Lambda -> <your-lambda-function-name-with-an-identifier>
 
-There should be a Test tab in your function. 
+There should be a Test tab in your function.
 
 ![test-tab](https://github.com/logicmonitor/cloud-samples/images/test-tab-in-function.png "Test tab in lambda function")
 

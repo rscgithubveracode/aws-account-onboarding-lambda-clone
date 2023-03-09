@@ -87,7 +87,7 @@ public class CreateAndAttachPolicyToRoleHandler implements RequestHandler<Map<St
                 .build();
 
             CreatePolicyResponse response = iam.createPolicy(request);
-            // Wait until the policy is created.
+
             GetPolicyRequest polRequest = GetPolicyRequest.builder()
                 .policyArn(response.policy().arn())
                 .build();
@@ -115,7 +115,7 @@ public class CreateAndAttachPolicyToRoleHandler implements RequestHandler<Map<St
             CreateRoleRequest request = CreateRoleRequest.builder()
                 .roleName(roleName)
                 .assumeRolePolicyDocument(assumeRolePolicyJson)
-                .description("Created using the AWS SDK for Java")
+                .description("Created using the AWS SDK for Java in lambda function")
                 .build();
 
             CreateRoleResponse response = iam.createRole(request);
