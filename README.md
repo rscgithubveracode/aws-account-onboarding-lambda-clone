@@ -27,7 +27,8 @@ If you have your aws-cli setup with a single profile, you could also directly cr
 
 `$ aws s3 mb s3://<enter-a-bucket-name>`
 
-Add `--region` option if you want it in a particular region.
+Add `--region` option if you want it in a particular region. If you get any authentication error,
+add `--profile <your-aws-profile-name>` in the command.
 
 # Generate the artifacts
 
@@ -49,11 +50,11 @@ The deploy script uses aws cloudformation to package the artifacts and create th
 
 Alternatively, you can run the following commands if your profile is already setup,
 
-`$ aws cloudformation package --template-file template.yml --s3-bucket <your-s3-bucket-name-from-step-1> --output-template-file out.yml`
+`$ aws --profile <your-profile-name> --region <region-in-which-you-want-this-created> cloudformation package --template-file template.yml --s3-bucket <your-s3-bucket-name-from-step-1> --output-template-file out.yml`
 
 Make sure you have an out.yml file generated.
 
-`$ aws cloudformation deploy --template-file out.yml --stack-name <enter-a-lambda-function-name> --capabilities CAPABILITY_NAMED_IAM`
+`$ aws --profile <your-profile-name> --region <region-in-which-you-want-this-created> cloudformation deploy --template-file out.yml --stack-name <enter-a-lambda-function-name> --capabilities CAPABILITY_NAMED_IAM`
 
 You should see a successfully created stack message.
 
@@ -95,8 +96,9 @@ Eg.,
 }
 ```
 
-Test and Save this event if you are going to edit and use it for multiple role, policy creations. 
+Test and Save this event if you are going to edit and use it for multiple role, policy creations.
 
-This should have created your role with proper trust entity (external-id), policy and attached the policy to role.
+This should have created your role with proper trust entity (external-id), policy and attached the
+policy to role.
 
   
