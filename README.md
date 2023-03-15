@@ -16,7 +16,8 @@
 
 # s3 bucket creation
 
-For deployment artifacts related to lambda function creation to be stored in s3,
+This step is needed to deploy artifacts related to lambda function. We need to create a s3 bucket to
+store the artifacts. Run the following command from the root level `cloud-samples`,
 
 `$ ./create_aws_s3_bucket.sh <enter-a-bucket-name-to-create> <aws-profile-name> <aws-region>`
 
@@ -28,9 +29,19 @@ If you have your aws-cli setup with a single profile, you could also directly cr
 
 Add `--region` option if you want it in a particular region.
 
+# Generate the artifacts
+
+Let's package our java code as a zip. Run the following command from the root level of
+project `cloud-samples`,
+
+`./gradlew buildZip`
+
+Gradle will generate the zip under the project in the path `build/distributions/cloud-samples.zip`.
+
 # Deploy artifacts and lambda function - One time process
 
-Now that you have created a s3 bucket, let's deploy our lambda function.
+Now that you have created a s3 bucket and our lambda function artifact, let's deploy our lambda
+function using the configuration file `template.yml`
 
 The deploy script uses aws cloudformation to package the artifacts and create the lambda function.
 
@@ -84,6 +95,8 @@ Eg.,
 }
 ```
 
-Save this event if you are going to edit and use it for multiple role, policy creations.
+Test and Save this event if you are going to edit and use it for multiple role, policy creations. 
+
+This should have created your role with proper trust entity (external-id), policy and attached the policy to role.
 
   
