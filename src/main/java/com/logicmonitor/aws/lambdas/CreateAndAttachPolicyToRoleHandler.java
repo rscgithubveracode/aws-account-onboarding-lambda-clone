@@ -1,6 +1,7 @@
 package com.logicmonitor.aws.lambdas;
 
 import com.amazonaws.services.lambda.runtime.Context;
+import com.amazonaws.services.lambda.runtime.LambdaLogger;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -23,16 +24,20 @@ import software.amazon.awssdk.services.iam.waiters.IamWaiter;
 /**
  * This handler class will create role, policy and attach the policy to role.
  */
-public class CreateAndAttachPolicyToRoleHandler implements RequestHandler<Map<String, Object>, String> {
+public class CreateAndAttachPolicyToRoleHandler implements
+    RequestHandler<Map<String, Object>, String> {
+
+    private static LambdaLogger logger;
 
     /**
-     *
-     * @param event The Lambda Function input contains principalAccountId, externalId, roleName, policyName, policyJson
+     * @param event The Lambda Function input contains principalAccountId, externalId, roleName,
+     * policyName, policyJson
      * @param context The Lambda execution environment context object.
      * @return role and policy arn
      */
     @Override
     public String handleRequest(Map<String, Object> event, Context context) {
+        logger = context.getLogger();
         Region region = Region.AWS_GLOBAL;
         IamClient iamClient = IamClient.builder()
             .region(region)
@@ -94,14 +99,14 @@ public class CreateAndAttachPolicyToRoleHandler implements RequestHandler<Map<St
 
             WaiterResponse<GetPolicyResponse> waitUntilPolicyExists = iamWaiter.waitUntilPolicyExists(
                 polRequest);
-            waitUntilPolicyExists.matched().response().ifPresent(System.out::println);
+            waitUntilPolicyExists.matched().response().ifPresent(item -> logger.log("Policy created. Arn: "+ item.policy().arn()));
             return response.policy();
 
         } catch (IamException ex) {
-            System.err.println(ex.awsErrorDetails().errorMessage());
+            logger.log(ex.awsErrorDetails().errorMessage());
             System.exit(1);
         } catch (Exception e) {
-            System.err.println(e.getMessage());
+            logger.log(e.getMessage());
             System.exit(1);
         }
         return null;
@@ -121,7 +126,7 @@ public class CreateAndAttachPolicyToRoleHandler implements RequestHandler<Map<St
             CreateRoleResponse response = iam.createRole(request);
             return response.role().arn();
         } catch (IamException e) {
-            System.err.println(e.awsErrorDetails().errorMessage());
+            logger.log(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
         return "";
@@ -136,7 +141,7 @@ public class CreateAndAttachPolicyToRoleHandler implements RequestHandler<Map<St
         try {
             iam.attachRolePolicy(request);
         } catch (IamException e) {
-            System.err.println(e.awsErrorDetails().errorMessage());
+            logger.log(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
     }
