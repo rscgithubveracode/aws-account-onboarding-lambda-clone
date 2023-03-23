@@ -6,6 +6,11 @@ import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonParser;
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Map;
 import software.amazon.awssdk.core.waiters.WaiterResponse;
 import software.amazon.awssdk.regions.Region;
@@ -46,7 +51,8 @@ public class CreateAndAttachPolicyToRoleHandler implements
 
         String principalAccountId = event.get("principalAccountId").toString();
         String policyName = event.get("policyName").toString();
-        String policyJson = gson.toJson(event.get("policyJson"));
+        String policyJson = readPolicyJson();
+
         String roleName = event.get("roleName").toString();
         String externalId = event.get("externalId").toString();
 
@@ -59,6 +65,18 @@ public class CreateAndAttachPolicyToRoleHandler implements
         attachPolicyToRole(iamClient, roleName, createdPolicy.arn());
         return "Created and attached policy: " + createdPolicy.arn() + " to role: "
             + createdRoleArn;
+    }
+
+    private String readPolicyJson() {
+        String policyJson;
+        URL resource = CreateAndAttachPolicyToRoleHandler.class.getClassLoader().getResource("policy.json");
+        try {
+            byte[] bytes = Files.readAllBytes(Paths.get(resource.toURI()));
+            policyJson = new String(bytes);
+        } catch (IOException | URISyntaxException e) {
+            throw new RuntimeException("Something went wrong with reading policy json: " + e.getMessage());
+        }
+        return policyJson;
     }
 
     private String getTrustedEntityPolicy(String externalId, String principalAccountId) {
@@ -99,7 +117,8 @@ public class CreateAndAttachPolicyToRoleHandler implements
 
             WaiterResponse<GetPolicyResponse> waitUntilPolicyExists = iamWaiter.waitUntilPolicyExists(
                 polRequest);
-            waitUntilPolicyExists.matched().response().ifPresent(item -> logger.log("Policy created. Arn: "+ item.policy().arn()));
+            waitUntilPolicyExists.matched().response()
+                .ifPresent(item -> logger.log("Policy created. Arn: " + item.policy().arn()));
             return response.policy();
 
         } catch (IamException ex) {

@@ -14,6 +14,11 @@
 
 `$ cd cloud-samples`
 
+# Changing standard policy json
+
+The default policy json for the role is in path `src/main/resources/policy.json`. If you wish to
+edit that, please do so before proceeding further.
+
 # s3 bucket creation
 
 This step is needed to deploy artifacts related to lambda function. We need to create a s3 bucket to
