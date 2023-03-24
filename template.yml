@@ -14,8 +14,15 @@ Resources:
       # Function's execution role
       Policies:
         - AWSLambdaBasicExecutionRole
-        - AWSLambda_FullAccess
-        - AWSXrayWriteOnlyAccess
-        - AWSLambdaVPCAccessExecutionRole
-        - IAMFullAccess         # this is to grant access to our lambda function to manage IAM resource (create policy, role, attach policy etc.,)
+        - Statement:
+            - Sid: AllowLambdaFunctionToIAM
+              Effect: Allow
+              Action:
+                - iam:CreatePolicy
+                - iam:GetRole
+                - iam:GetPolicy
+                - iam:CreateRole
+                - iam:AttachRolePolicy
+                - sts:AssumeRole               # cannot invoke lambda without this
+              Resource: '*'
       Tracing: Active
