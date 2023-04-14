@@ -11,7 +11,7 @@ Resources:
       Description: Java function
       MemorySize: 512
       Timeout: 900
-      # Function's execution role
+      # Function's execution role permissions
       Policies:
         - AWSLambdaBasicExecutionRole
         - Statement:
@@ -23,6 +23,6 @@ Resources:
                 - iam:GetPolicy
                 - iam:CreateRole
                 - iam:AttachRolePolicy
-                - sts:AssumeRole               # cannot invoke lambda without this
+                - sts:AssumeRole               # cannot invoke lambda without this. function needs to assume role whenever it's invoked.
               Resource: '*'
       Tracing: Active

@@ -83,21 +83,7 @@ Eg.,
   "principalAccountId": "123456789",
   "policyName": "my-policy-name",
   "externalId": "my-external-id-from-lm",
-  "roleName": "my-role-name",
-  "policyJson": {
-    "Version": "2012-10-17",
-    "Statement": [
-      {
-        "Effect": "Allow",
-        "Action": [
-          "logs:CreateLogGroup",
-          "logs:CreateLogStream",
-          "logs:PutLogEvents"
-        ],
-        "Resource": "*"
-      }
-    ]
-  }
+  "roleName": "my-role-name"
 }
 ```
 
