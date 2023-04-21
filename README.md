@@ -72,7 +72,7 @@ Navigate to aws console -> Lambda -> <your-lambda-function-name-with-an-identifi
 
 There should be a Test tab in your function.
 
-![test-tab](https://github.com/logicmonitor/cloud-samples/images/test-tab-in-function.png "Test tab in lambda function")
+![test-tab](images/test-tab-in-function.png "Test tab in lambda function")
 
 Under the Event Json, supply your input for role and policy creation,
 
