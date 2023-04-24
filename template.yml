@@ -1,0 +1,28 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: 'AWS::Serverless-2016-10-31'
+Description: An AWS Lambda application that calls the Lambda API.
+Resources:
+  function:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: build/distributions/cloud-samples.zip
+      Handler: com.logicmonitor.aws.lambdas.CreateAndAttachPolicyToRoleHandler
+      Runtime: java11
+      Description: Java function
+      MemorySize: 512
+      Timeout: 900
+      # Function's execution role permissions
+      Policies:
+        - AWSLambdaBasicExecutionRole
+        - Statement:
+            - Sid: AllowLambdaFunctionToIAM
+              Effect: Allow
+              Action:
+                - iam:CreatePolicy
+                - iam:GetRole
+                - iam:GetPolicy
+                - iam:CreateRole
+                - iam:AttachRolePolicy
+                - sts:AssumeRole               # cannot invoke lambda without this. function needs to assume role whenever it's invoked.
+              Resource: '*'
+      Tracing: Active
