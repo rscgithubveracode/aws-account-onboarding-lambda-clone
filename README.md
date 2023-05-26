@@ -1,4 +1,12 @@
-# Lambda function to create aws role, policy and attach policy to role
+# Lambda function to create AWS role, policy and attach policy to role
+
+This project provides a sample lambda function code to create an AWS role, policy and attach the
+created policy to role.
+
+## Motivation
+
+This is an alternative method of creating roles and policies through AWS console. It is more suitable when
+multiple roles and policies need to be created continuously. 
 
 # Requirements
 
