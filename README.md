@@ -1,13 +1,13 @@
-# Lambda function to create AWS role, policy and attach policy to role
+# Lambda function to create AWS role & policy, then attach policy to role
 
-This project provides a sample lambda function code to create an AWS role, policy and attach the
-created policy to role.
+This project provides a sample lambda function which creates an AWS role and policy, then attaches the
+created policy to the role.
 
 ## Motivation
 
-This is an alternative method of creating roles and policies through AWS console. It is more
+This is an alternative method of creating roles and policies through the AWS console. It is most
 suitable when
-multiple roles and policies need to be created continuously.
+multiple roles and policies need to be created in succession.
 
 # Requirements
 
@@ -30,14 +30,14 @@ edit that, please do so before proceeding further.
 
 # s3 bucket creation
 
-This step is needed to deploy artifacts related to lambda function. We need to create a s3 bucket to
-store the artifacts. Run the following command from the root level `cloud-samples`,
+This step is needed to deploy artifacts related to the lambda function. We need to create an s3 bucket to
+store the artifacts. Run the following command from the root level `cloud-samples`:
 
 `$ ./create_aws_s3_bucket.sh <enter-a-bucket-name-to-create> <aws-profile-name> <aws-region>`
 
 where <aws-profile-name> is the profile configured in `~/.aws/config`.
 
-If you have your aws-cli setup with a single profile, you could also directly create a s3 bucket,
+If you have your aws-cli setup with a single profile, you could also directly create a s3 bucket:
 
 `$ aws s3 mb s3://<enter-a-bucket-name>`
 
@@ -47,7 +47,7 @@ add `--profile <your-aws-profile-name>` in the command.
 # Generate the artifacts
 
 Let's package our java code as a zip. Run the following command from the root level of
-project `cloud-samples`,
+project `cloud-samples`:
 
 `./gradlew buildZip`
 
@@ -62,7 +62,7 @@ The deploy script uses aws cloudformation to package the artifacts and create th
 
 `$ ./deploy.sh <aws-profile-name> <aws-region> <enter-a-lambda-function-name>`
 
-Alternatively, you can run the following commands if your profile is already setup,
+Alternatively, you can run the following commands if your profile is already setup:
 
 `$ aws --profile <your-profile-name> --region <region-in-which-you-want-this-created> cloudformation package --template-file template.yml --s3-bucket <your-s3-bucket-name-from-step-1> --output-template-file out.yml`
 
@@ -75,7 +75,7 @@ You should see a successfully created stack message.
 # Running the lambda function
 
 Now, you can trigger the lambda function using events from aws console. This will create the role,
-policy and attach the policy to role.
+the policy, and will attach the policy to the role.
 
 Navigate to aws console -> Lambda -> <your-lambda-function-name-with-an-identifier>
 
@@ -98,12 +98,12 @@ Eg.,
 
 Test and Save this event if you are going to edit and use it for multiple role, policy creations.
 
-This should have created your role with proper trust entity (external-id), policy and attached the
+This should have created your role with the proper trust entity (external-id), the policy, and attached the
 policy to role.
 
 # Reporting bugs
 
-If there are any issues or security vulnerabilities you want to report, please create them from
+If there are any issues or security vulnerabilities you want to report, please add them to
 the Issues section. The
 maintainers of this project will review.
   
