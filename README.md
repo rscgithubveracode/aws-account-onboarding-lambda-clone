@@ -5,8 +5,9 @@ created policy to role.
 
 ## Motivation
 
-This is an alternative method of creating roles and policies through AWS console. It is more suitable when
-multiple roles and policies need to be created continuously. 
+This is an alternative method of creating roles and policies through AWS console. It is more
+suitable when
+multiple roles and policies need to be created continuously.
 
 # Requirements
 
@@ -100,4 +101,9 @@ Test and Save this event if you are going to edit and use it for multiple role, 
 This should have created your role with proper trust entity (external-id), policy and attached the
 policy to role.
 
+# Reporting bugs
+
+If there are any issues or security vulnerabilities you want to report, please create them from
+the Issues section. The
+maintainers of this project will review.
   
