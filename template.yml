@@ -5,7 +5,7 @@ Resources:
   function:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: build/distributions/cloud-samples.zip
+      CodeUri: build/distributions/aws-account-onboarding-lambda.zip
       Handler: com.logicmonitor.aws.lambdas.CreateAndAttachPolicyToRoleHandler
       Runtime: java11
       Description: Java function
