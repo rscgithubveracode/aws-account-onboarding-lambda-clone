@@ -5,6 +5,7 @@
       "Action": [
         "apigateway:GET",
         "appstream:DescribeFleets",
+        "athena:GetWorkGroup",
         "athena:List*",
         "autoscaling:Describe*",
         "backup:List*",
@@ -53,6 +54,7 @@
         "glue:GetJobs",
         "glue:GetTags",
         "health:DescribeEvents",
+        "iam:GetUser",
         "kafka:List*",
         "kinesis:DescribeStream",
         "kinesis:ListStreams",
