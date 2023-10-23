@@ -1,0 +1,12 @@
+# Gradle
+.gradle/
+build/
+
+# IntelliJ
+.idea
+
+# output template file from running aws cloudformation package command
+out.yml
+
+# output temp file containing aws s3 bucket name generated from aws s3 bucket create command
+bucket-name.txt
