@@ -17,7 +17,8 @@ on:
     - cron: '*/30 * * * *'
   workflow_dispatch:
   
-
+env: 
+  SRCCLR_API_TOKEN: ${{ secrets.SRCCLR_API_TOKEN }}
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 permissions:
   contents: read
@@ -69,7 +70,7 @@ jobs:
       uses: veracode/veracode-sca@v2.1.11
       with:
         # Authorization token to query and create issues
-        github_token: ${{ secrets.SRCCLR_API_TOKEN }}
+        github_token: ${{ github.token }}
         # Run the SRCCLR with the `--quick` options
         quick: false
         # Show update advisor
