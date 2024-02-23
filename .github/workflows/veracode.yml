@@ -59,6 +59,40 @@ jobs:
         sarif_file: veracode-results.sarif
 
 
+        
+
+    - name: Veracode Dependency Scanning
+    # You may pin to the exact commit or the version.
+    # uses: veracode/veracode-sca@3e357c713c2cca6f56b30ef0cce6870070f3b94c
+      uses: veracode/veracode-sca@v2.1.11
+      with:
+        # Authorization token to query and create issues
+        github_token: ${{ github.token }}
+        # Run the SRCCLR with the `--quick` options
+        quick: false
+        # Show update advisor
+        update_advisor: true
+        # A git URL to work with in case the scan is not for the current repository
+        # url: # optional, default is 
+        # An attribute to instruct the action to create an issue from found vulnerability or just simple text output
+        # create-issues: # optional, default is false
+        # A path within the repository where the build definition starts
+        path: ./
+        # Run the SRCCLR in debug mode
+        debug: true
+        # Run the SRCCLR with the `--skip-collectors` options
+        # skip-collectors: # optional, default is false
+        # Run the SRCCLR with the `--allow-dirty` option
+        allow-dirty: true
+        # Run the SRCCLR with the `--recursive` option
+        recursive: true
+        # Run the SRCCLR with the `--skip-vms` option
+        # skip-vms: # optional, default is false
+        # Run the SRCCLR with the `--no-graphs` option
+        # no-graphs: # optional, default is false
+          
+
+
 
     - name: Veracode Upload And Scan
     # You may pin to the exact commit or the version.
@@ -115,4 +149,5 @@ jobs:
         # debug: # optional
         # # automatically select all new top-level modules for inclusion in the scan
         # includenewmodules: # optional
+        
           
