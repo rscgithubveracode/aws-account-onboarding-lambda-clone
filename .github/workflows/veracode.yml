@@ -69,7 +69,7 @@ jobs:
       uses: veracode/veracode-sca@v2.1.11
       with:
         # Authorization token to query and create issues
-        github_token: ${{ github.token }}
+        github_token: ${{ secrets.SRCCLR_API_TOKEN }}
         # Run the SRCCLR with the `--quick` options
         quick: false
         # Show update advisor
