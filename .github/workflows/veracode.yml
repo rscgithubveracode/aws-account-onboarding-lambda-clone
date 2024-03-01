@@ -39,7 +39,7 @@ jobs:
       with:
         repository: ''
     - run: ./gradlew buildZip
-    - run: ls
+    - run: ls build/distributions
     - run: zip -r veracode-scan-target.zip ./
 
     # download the Veracode Static Analysis Pipeline scan jar
